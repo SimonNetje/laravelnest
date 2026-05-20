@@ -1,0 +1,9 @@
+{
+  "name": "concreto/simple-laravel-site",
+  "description": "Tiny Laravel-style demo app for Concreto ZIP upload testing.",
+  "type": "project",
+  "require": {},
+  "scripts": {
+    "post-autoload-dump": []
+  }
+}

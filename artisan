@@ -1,0 +1,39 @@
+<?php
+
+$command = $argv[1] ?? '';
+
+switch ($command) {
+    case 'key:generate':
+        $envPath = __DIR__ . '/.env';
+        $env = file_exists($envPath) ? file_get_contents($envPath) : '';
+        $key = 'base64:' . base64_encode(random_bytes(32));
+        if (preg_match('/^APP_KEY=.*/m', $env)) {
+            $env = preg_replace('/^APP_KEY=.*/m', 'APP_KEY=' . $key, $env);
+        } else {
+            $env .= PHP_EOL . 'APP_KEY=' . $key . PHP_EOL;
+        }
+        file_put_contents($envPath, $env);
+        echo "Application key set successfully.\n";
+        break;
+
+    case 'migrate':
+        echo "No migrations to run.\n";
+        break;
+
+    case 'db:seed':
+        echo "No seeders to run.\n";
+        break;
+
+    case 'storage:link':
+        $target = __DIR__ . '/public/storage';
+        if (!file_exists($target)) {
+            mkdir($target, 0775, true);
+        }
+        echo "Storage link ready.\n";
+        break;
+
+    default:
+        echo "Simple Laravel demo command handled: {$command}\n";
+}
+
+exit(0);
